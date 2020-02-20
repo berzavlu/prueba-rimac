@@ -1,6 +1,6 @@
 import * as TYPE from './types/home'
 import API from '../api'
-import ENV from '../env'
+import ENV from '../../env'
 
 const { API_CREAR_COTIZACION } = ENV[process.env.NODE_ENV]
 

@@ -1,7 +1,14 @@
-import React from 'react'
+/* eslint-disable object-curly-newline */
+import { connect } from 'react-redux'
+import { withRouter } from 'react-router'
+import Precio from './precio'
 
-const Precio = () => {
-  return <div>precio</div>
-}
+const mapStateToProps = (state) => ({
+  data: state,
+})
 
-export default Precio
+const mapDispatchToProps = () => ({})
+
+const PrecioMain = connect(mapStateToProps, mapDispatchToProps)(Precio)
+
+export default withRouter(PrecioMain)

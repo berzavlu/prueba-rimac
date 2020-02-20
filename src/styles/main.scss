@@ -35,3 +35,35 @@
 body {
   font-family: 'Lato', sans-serif;
 }
+
+.btn--loading {
+  position: relative;
+  opacity: 0.5;
+  cursor: default;
+  user-select: none;
+  pointer-events: none;
+  font-size: 0px !important;
+  &:before {
+    content: '';
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    right: 0;
+    left: 0;
+    height: 20px;
+    width: 20px;
+    margin: auto;
+    background-image: url('/images/loading.svg');
+    animation: btn-loading 0.3s linear infinite;
+  }
+}
+
+@keyframes btn-loading {
+  0% {
+    transform: rotate(0);
+  }
+
+  to {
+    transform: rotate(1turn);
+  }
+}

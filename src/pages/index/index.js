@@ -1,3 +1,4 @@
+/* eslint-disable object-curly-newline */
 import { connect } from 'react-redux'
 import { withRouter } from 'react-router'
 import { setPrices } from '../../actions/home'

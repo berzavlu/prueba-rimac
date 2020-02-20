@@ -14,7 +14,7 @@ const { PORT, NODE_ENV, ASSET_PATH } = ENV[process.env.NODE_ENV]
 const isProd = NODE_ENV === 'production'
 
 module.exports = {
-  entry: ['./src/app.tsx'],
+  entry: ['./src/app.js'],
   output: {
     filename: 'static/js/[name].[hash].chunk.js',
     path: path.resolve('./dist'),
@@ -22,6 +22,20 @@ module.exports = {
   },
   module: {
     rules: [
+      {
+        test: /\.js$/,
+        exclude: ['/node_modules'],
+        use: [
+          {
+            loader: 'babel-loader',
+            query: { compact: false },
+          },
+          {
+            loader: 'eslint-loader',
+            query: { compact: false },
+          },
+        ],
+      },
       {
         test: /\.s?css$/,
         oneOf: [
@@ -70,10 +84,6 @@ module.exports = {
             },
           },
         ],
-      },
-      {
-        test: /\.(t|j)sx?$/,
-        loader: 'awesome-typescript-loader',
       },
       {
         enforce: 'pre',

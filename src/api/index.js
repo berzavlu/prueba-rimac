@@ -1,47 +1,55 @@
-/* eslint-disable object-curly-newline */
-import fetch from 'isomorphic-unfetch'
-import Cookies from 'js-cookie'
-import ENV from 'env'
+import axios from 'axios'
+import aws4 from 'aws4'
 
-const { API_URL } = ENV[process.env.NODE_ENV]
+const extractHostname = (url) => {
+  const match = url.match(
+    /^(https?\:)\/\/(([^:\/?#]*)(?:\:([0-9]+))?)([\/]{0,1}[^?#]*)(\?[^#]*|)(#.*|)$/ // eslint-disable-line
+  )
+  return (
+    match && {
+      href: url,
+      protocol: match[1],
+      host: match[2],
+      hostname: match[3],
+      port: match[4],
+      pathname: match[5],
+      search: match[6],
+      hash: match[7],
+    }
+  )
+}
 
 class API {
-  static request(url, method, body) {
-    const data = {
-      method,
-      headers: body ? { 'Content-Type': 'application/json' } : {},
+  static async requestCognito(url, payload) {
+    const request = {
+      host: extractHostname(url).hostname,
+      method: 'POST',
+      url,
+      data: payload,
+      body: JSON.stringify(payload),
+      path: extractHostname(url).pathname,
+      headers: {
+        Accept: 'application/json',
+        'Content-Type': 'application/json',
+      },
     }
 
-    if (Cookies.get('token')) {
-      data.headers.Authorization = `Bearer ${Cookies.get('token')}`
+    const AWS_Credentials = {
+      AccessKeyId: sessionStorage.getItem('AccessKeyId'),
+      SessionToken: sessionStorage.getItem('SessionToken'),
+      SecretKey: sessionStorage.getItem('SecretKey'),
     }
 
-    if (method === 'POST' || method === 'PUT') {
-      data.body = JSON.stringify(body)
-    }
-
-    return new Promise((resolve, reject) => {
-      fetch(API_URL + url, data)
-        .then((response) => {
-          if (response.status >= 400) {
-            throw new Error('Bad response from server')
-          }
-          return response.json()
-        })
-        .then((response) => {
-          if (Object.prototype.hasOwnProperty.call(response, 'error')) {
-            reject(response)
-          } else {
-            resolve(response)
-          }
-        })
-        .catch(() => {
-          const obj = {
-            msg: 'Ocurrió un error en el servidor.',
-          }
-          reject(obj)
-        })
+    const signedRequest = aws4.sign(request, {
+      secretAccessKey: AWS_Credentials.SecretKey,
+      accessKeyId: AWS_Credentials.AccessKeyId,
+      sessionToken: AWS_Credentials.SessionToken,
     })
+    delete signedRequest.headers.Host
+    delete signedRequest.headers['Content-Length']
+
+    const response = await axios(signedRequest)
+    return response.data
   }
 }
 
