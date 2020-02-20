@@ -1,4 +1,37 @@
+//==============================================================================
+// Configuration
+//==============================================================================
+
+@import 'base/variables';
+@import 'base/mixins';
+
+//==============================================================================
+// Reset
+//==============================================================================
+
+@import 'base/normalize';
+@import 'base/reset';
+
+//==============================================================================
+// Components
+//==============================================================================
+
+@import 'components/scaffolding';
+@import 'components/grid';
+@import 'components/helpers';
+@import 'components/buttons';
+@import 'components/forms';
+@import 'components/tables';
+@import 'components/navigation';
+@import 'components/layout';
+@import 'components/input';
+@import 'components/checkbox';
+
 @import './nprogress/style.scss';
-.color {
-  color: red;
+
+// estilos app
+@import './layout/style.scss';
+
+body {
+  font-family: 'Lato', sans-serif;
 }

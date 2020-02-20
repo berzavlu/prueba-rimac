@@ -1,0 +1,15 @@
+/**
+ * Layout
+*/
+
+.head {
+  height: 66px;
+  margin-left: 40px;
+  &--logo {
+    background-image: url('/images/logo.svg');
+    width: 125px;
+    height: 100%;
+    background-position: 50%;
+    background-repeat: no-repeat;
+  }
+}

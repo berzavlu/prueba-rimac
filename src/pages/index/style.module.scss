@@ -1,0 +1,115 @@
+@import '../../styles/mixins.scss';
+
+.wrapper {
+  display: flex;
+  margin-top: 80px;
+  padding: 0 0 0 100px;
+  &__left {
+    position: relative;
+    width: 50%;
+    color: #fff;
+    min-width: 735px;
+    &__title {
+      font-size: 48px;
+      line-height: 60px;
+      letter-spacing: -0.6px;
+      font-weight: 300;
+    }
+    &__subtitle {
+      margin-top: 16px;
+      max-width: 240px;
+      font-size: 18px;
+      line-height: 32px;
+    }
+    &__human {
+      position: absolute;
+      width: 300px;
+      height: 430px;
+      position: absolute;
+      top: -1px;
+      right: 111px;
+      background-repeat: no-repeat;
+      background-image: url('/images/human.svg');
+    }
+    &__disclaimer {
+      font-family: 'Roboto', sans-serif;
+      font-style: normal;
+      font-weight: 300;
+      font-size: 12px;
+      line-height: 24px;
+      letter-spacing: 0.2px;
+      color: #ffd7da;
+      position: static;
+      left: auto;
+      top: auto;
+      margin-top: 70px;
+    }
+  }
+  &__right {
+    width: 50%;
+    margin-top: -30px;
+    &__title {
+      font-size: 40px;
+      line-height: 52px;
+      letter-spacing: -0.2px;
+      font-weight: 300;
+      &__red {
+        color: $rojo-rimac;
+        font-weight: 400;
+      }
+    }
+    &__form {
+      margin-top: 21px;
+      max-width: 280px;
+    }
+    &__tos {
+      font-weight: 300;
+      font-size: 12px;
+      line-height: 20px;
+      font-family: Roboto;
+      color: #a9b1d1;
+      display: inline-block;
+      width: 240px;
+      vertical-align: top;
+      user-select: none;
+    }
+    &__alertTos {
+      font-size: 12px;
+      color: rgb(255, 136, 141);
+      line-height: normal;
+      letter-spacing: normal;
+      font-weight: inherit;
+      height: auto;
+      display: block;
+    }
+    &__submit {
+      margin-top: 17px;
+      button {
+        letter-spacing: 1px;
+        border-radius: 6px;
+        padding: 15px 48px 16px;
+        font-size: 14px;
+        line-height: 0;
+        height: 48px;
+        color: #fff;
+        background-color: #ef3340;
+        border-color: #ef3340;
+        width: 100%;
+        max-width: 206px;
+        font-family: inherit;
+        text-transform: uppercase;
+        &:focus {
+          outline: none;
+          background-color: #fc4e55;
+          border-color: #fc4e55;
+          box-shadow: 0 3px 8px rgba(169, 177, 209, 0.75);
+        }
+        &:hover {
+          background-color: #fc4e55;
+          border-color: #fc4e55;
+          box-shadow: 0 3px 8px rgba(169, 177, 209, 0.75);
+        }
+      }
+    }
+  }
+}
